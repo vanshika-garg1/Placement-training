@@ -1,0 +1,29 @@
+#include <vector>
+#include <map>
+
+class Solution {
+public:
+    void setZeroes(std::vector<std::vector<int>>& matrix) {
+        std::map<int, bool> zeroRows, zeroCols;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    zeroRows[i] = true;
+                    zeroCols[j] = true;
+                }
+            }
+        }
+        for (const auto& [row, _] : zeroRows) {
+            std::fill(matrix[row].begin(), matrix[row].end(), 0);
+        }
+
+        for (const auto& [col, _] : zeroCols) {
+            for (int i = 0; i < rows; i++) {
+                matrix[i][col] = 0;
+            }
+        }
+    }
+};
